@@ -15,6 +15,23 @@ object Day2 extends Day {
       })
       .sum
 
+  def convertSelf1(x: String): String =
+    x match {
+      case "X" => R
+      case "Y" => P
+      case "Z" => S
+    }
+
+  override def puzzle2(input: List[String]): Any =
+    makePairs(input)
+      .map({
+        case (a, b) =>
+          val x = convertOpponent(a)
+          val y = convertSelf2(x, b)
+          getScore(x, y)
+      })
+      .sum
+
   def makePairs(lines: List[String]): List[(String, String)] =
     lines.flatMap(_.split(" ").toList match {
       case a :: b :: Nil => Some((a, b))
@@ -26,13 +43,6 @@ object Day2 extends Day {
       case "A" => R
       case "B" => P
       case "C" => S
-    }
-
-  def convertSelf1(x: String): String =
-    x match {
-      case "X" => R
-      case "Y" => P
-      case "Z" => S
     }
 
   def getScore(a: String, b: String): Int = {
@@ -51,16 +61,6 @@ object Day2 extends Day {
     choice + score
   }
 
-  override def puzzle2(input: List[String]): Any =
-    makePairs(input)
-      .map({
-        case (a, b) =>
-          val x = convertOpponent(a)
-          val y = convertSelf2(x, b)
-          getScore(x, y)
-      })
-      .sum
-
   def convertSelf2(a: String, b: String): String =
     b match {
       case "X" => getLoser(a)
@@ -71,11 +71,11 @@ object Day2 extends Day {
   def getLoser(x: String): String =
     strategies(x)(0)
 
-  def getWinner(x: String): String =
-    strategies(x)(1)
-
   def strategies: Map[String, List[String]] =
     Map(R -> List(S, P), P -> List(R, S), S -> List(P, R))
+
+  def getWinner(x: String): String =
+    strategies(x)(1)
 
   override protected def testInputStr: String = """A Y
                                                   |B X

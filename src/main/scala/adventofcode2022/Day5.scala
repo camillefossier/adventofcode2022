@@ -4,33 +4,34 @@ import scala.collection.mutable.Stack
 import scala.util.matching.Regex
 
 object Day5 extends Day {
-  override protected def testInputStr: String = """    [D]
-                                                  |[N] [C]
-                                                  |[Z] [M] [P]
-                                                  | 1   2   3
-                                                  |
-                                                  |move 1 from 2 to 1
-                                                  |move 3 from 1 to 3
-                                                  |move 2 from 2 to 1
-                                                  |move 1 from 1 to 2""".stripMargin
-
-  case class Instruction(quantity: Int, src: Int, dst: Int) {
-    def to(crates: List[Stack[Char]],
-           preserveOrder: Boolean = false): List[Stack[Char]] = {
-      val removed = 0
-        .until(quantity)
-        .map(_ => {
-          crates(src - 1).removeLast()
-        })
-      val toAdd = if (preserveOrder) removed.reverse else removed
-      toAdd.map(crates(dst - 1).addOne)
-      crates
-    }
-  }
-
   val nb = "[0-9]+"
   val instructionRegexp: Regex =
     s"move ($nb) from ($nb) to ($nb)".r("q", "src", "dst")
+
+  override def fileName: String = "day5"
+
+  override def puzzle1(input: List[String]): Any =
+    parse(input) match {
+      case (crates, instructions) =>
+        applyInstruction(crates, instructions)
+          .flatMap(_.lastOption)
+          .mkString("")
+    }
+
+  override def puzzle2(input: List[String]): Any =
+    parse(input) match {
+      case (crates, instructions) =>
+        applyInstruction(crates, instructions, preserveOrder = true)
+          .flatMap(_.lastOption)
+          .mkString("")
+    }
+
+  def parse(input: List[String]): (List[Stack[Char]], List[Instruction]) =
+    input.splitAt(input.indexWhere(_.isEmpty)) match {
+      case (crates, instructions) =>
+        (parseCrates(crates), parseInstructions(instructions))
+    }
+
   def parseInstructions(input: List[String]): List[Instruction] =
     input.flatMap(
       line =>
@@ -71,12 +72,6 @@ object Day5 extends Day {
     stacks
   }
 
-  def parse(input: List[String]): (List[Stack[Char]], List[Instruction]) =
-    input.splitAt(input.indexWhere(_.isEmpty)) match {
-      case (crates, instructions) =>
-        (parseCrates(crates), parseInstructions(instructions))
-    }
-
   def applyInstruction(crates: List[Stack[Char]],
                        instructions: List[Instruction],
                        preserveOrder: Boolean = false): List[Stack[Char]] =
@@ -84,21 +79,27 @@ object Day5 extends Day {
       (crates, instruction) => instruction.to(crates, preserveOrder)
     )
 
-  override def fileName: String = "day5"
+  override protected def testInputStr: String = """    [D]
+                                                  |[N] [C]
+                                                  |[Z] [M] [P]
+                                                  | 1   2   3
+                                                  |
+                                                  |move 1 from 2 to 1
+                                                  |move 3 from 1 to 3
+                                                  |move 2 from 2 to 1
+                                                  |move 1 from 1 to 2""".stripMargin
 
-  override def puzzle1(input: List[String]): Any =
-    parse(input) match {
-      case (crates, instructions) =>
-        applyInstruction(crates, instructions)
-          .flatMap(_.lastOption)
-          .mkString("")
+  case class Instruction(quantity: Int, src: Int, dst: Int) {
+    def to(crates: List[Stack[Char]],
+           preserveOrder: Boolean = false): List[Stack[Char]] = {
+      val removed = 0
+        .until(quantity)
+        .map(_ => {
+          crates(src - 1).removeLast()
+        })
+      val toAdd = if (preserveOrder) removed.reverse else removed
+      toAdd.map(crates(dst - 1).addOne)
+      crates
     }
-
-  override def puzzle2(input: List[String]): Any =
-    parse(input) match {
-      case (crates, instructions) =>
-        applyInstruction(crates, instructions, preserveOrder = true)
-          .flatMap(_.lastOption)
-          .mkString("")
-    }
+  }
 }

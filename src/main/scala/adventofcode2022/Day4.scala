@@ -12,14 +12,6 @@ object Day4 extends Day {
       }
     )
 
-  def parseLine(line: String): List[Set[Int]] =
-    line
-      .split(",")
-      .map(_.split("-").toList match {
-        case a :: b :: Nil => (a.toInt to b.toInt).toSet
-      })
-      .toList
-
   def oneIncludeOther[T](set1: Set[T], set2: Set[T]): Boolean = {
     val (a, b) = if (set1.size >= set2.size) (set1, set2) else (set2, set1)
     a.intersect(b) == b
@@ -32,6 +24,14 @@ object Day4 extends Day {
           case a :: b :: Nil => overlap(a, b)
       }
     )
+
+  def parseLine(line: String): List[Set[Int]] =
+    line
+      .split(",")
+      .map(_.split("-").toList match {
+        case a :: b :: Nil => (a.toInt to b.toInt).toSet
+      })
+      .toList
 
   def overlap[T](set1: Set[T], set2: Set[T]): Boolean =
     set1.intersect(set2).nonEmpty
