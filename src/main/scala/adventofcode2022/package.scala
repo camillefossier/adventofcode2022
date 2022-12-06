@@ -11,6 +11,9 @@ package object adventofcode2022 {
       }
     }
 
+    def allUnique: Boolean =
+      arr.toSet.size == arr.size
+
     def safeTail(n: Int = 1): List[T] =
       arr.slice(n, arr.size)
   }
