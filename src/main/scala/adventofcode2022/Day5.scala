@@ -7,6 +7,7 @@ object Day5 extends Day {
   val nb = "[0-9]+"
   val instructionRegexp: Regex =
     s"move ($nb) from ($nb) to ($nb)".r("q", "src", "dst")
+  val cratesRegexp = "\\[([A-Z])\\]|(?: {4})".r
 
   override def fileName: String = "day5"
 
@@ -50,25 +51,20 @@ object Day5 extends Day {
   def parseCrates(input: List[String]): List[Stack[Char]] = {
     val reversedInput = input.reverse
     val nbStacks = reversedInput.headOption
-      .flatMap(_.split(" ").filter(_.nonEmpty).map(_.toInt).lastOption)
+      .flatMap(_.split(" ").filter(_.nonEmpty).lastOption.map(_.toInt))
       .getOrElse(0)
     val stacks = List.fill(nbStacks)(Stack[Char]())
-    reversedInput
-      .safeTail(1)
-      .foreach(
-        line =>
-          line
-            .splitEvery(4)
-            .zipWithIndex
-            .foreach({
-              case (crate, i) =>
-                Option(crate.charAt(1)) match {
-                  case Some(char) if char != ' ' =>
-                    stacks.lift(i).map(_.addOne(char))
-                  case _ => ()
-                }
-            })
-      )
+    reversedInput.foreach(
+      line =>
+        cratesRegexp
+          .findAllMatchIn(line)
+          .zipWithIndex
+          .foreach({
+            case (m, i) if m.subgroups.flatMap(Option(_)).nonEmpty =>
+              stacks.lift(i).map(_.addOne(m.group(1).charAt(0)))
+            case _ => ()
+          })
+    )
     stacks
   }
 
