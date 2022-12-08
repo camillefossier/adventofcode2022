@@ -20,10 +20,7 @@ package object adventofcode2022 {
 
   implicit class RichString(str: String) {
     def splitEvery(n: Int): List[String] =
-      str.splitAt(n) match {
-        case (first, "")   => List(first)
-        case (first, rest) => List(first) ++ rest.splitEvery(n)
-      }
+      str.sliding(n, n).toList
 
     def splitNoEmpty(sep: String): Array[String] =
       str.split(sep).filter(_.nonEmpty)
