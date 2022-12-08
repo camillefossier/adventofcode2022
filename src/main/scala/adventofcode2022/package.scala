@@ -24,5 +24,8 @@ package object adventofcode2022 {
         case (first, "")   => List(first)
         case (first, rest) => List(first) ++ rest.splitEvery(n)
       }
+
+    def splitNoEmpty(sep: String): Array[String] =
+      str.split(sep).filter(_.nonEmpty)
   }
 }
