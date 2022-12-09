@@ -4,6 +4,43 @@ import scala.math.{abs, max}
 
 object Day9 extends Day {
 
+  override def fileName: String = "day9"
+
+  override def puzzle1(input: List[String]): Any =
+    puzzle(input, 2)
+
+  override def puzzle2(input: List[String]): Any =
+    puzzle(input, 10)
+
+  private def puzzle(input: List[String], nbKnots: Int) = {
+    val lastKnot = input
+      .foldLeft(Rope(knots = 1.to(nbKnots).toList.map(_ => Knot())).init())(
+        (rope, line) => rope.applyMovement(line)
+      )
+      .knots
+      .last
+    println(lastKnot.renderPositions)
+    lastKnot.visitedPositions.toSet.size
+  }
+
+  override protected def testInputStr1: String = """R 4
+                                                   |U 4
+                                                   |L 3
+                                                   |D 1
+                                                   |R 4
+                                                   |D 1
+                                                   |L 5
+                                                   |R 2""".stripMargin
+
+  override protected def testInputStr2: String = """R 5
+                                                  |U 8
+                                                  |L 8
+                                                  |D 3
+                                                  |R 17
+                                                  |D 10
+                                                  |L 25
+                                                  |U 20""".stripMargin
+
   case class Knot(x: Int = 0,
                   y: Int = 0,
                   visitedPositions: List[(Int, Int)] = List.empty) {
@@ -32,24 +69,19 @@ object Day9 extends Day {
     def move(dx: Int, dy: Int): Knot =
       this.copy(x = x + dx, y = y + dy)
 
-    def ux(to: Knot): Int = if (x == to.x) 0 else (to.x - x) / abs(to.x - x)
-    def uy(to: Knot): Int = if (y == to.y) 0 else (to.y - y) / abs(to.y - y)
-
     def moveToward(knot: Knot, maxLength: Int): Knot =
       if (Knot.length(this, knot) > maxLength)
         this.copy(x = x + ux(knot), y = y + uy(knot)).addNewPosition()
       else this
 
+    def ux(to: Knot): Int = if (x == to.x) 0 else (to.x - x) / abs(to.x - x)
+
+    def uy(to: Knot): Int = if (y == to.y) 0 else (to.y - y) / abs(to.y - y)
+
     def addNewPosition(): Knot =
       this.copy(visitedPositions = visitedPositions :+ (x, y))
   }
 
-  object Knot {
-    def horizontalLength(a: Knot, b: Knot): Int = abs(a.x - b.x)
-    def verticalLength(a: Knot, b: Knot): Int = abs(a.y - b.y)
-    def length(a: Knot, b: Knot): Int =
-      max(horizontalLength(a, b), verticalLength(a, b))
-  }
   case class Rope(knots: List[Knot] = List(Knot(), Knot()),
                   maxLength: Int = 1) {
 
@@ -88,40 +120,12 @@ object Day9 extends Day {
       }
   }
 
-  override def fileName: String = "day9"
+  object Knot {
+    def length(a: Knot, b: Knot): Int =
+      max(horizontalLength(a, b), verticalLength(a, b))
 
-  def puzzle(input: List[String], nbKnots: Int) = {
-    val lastKnot = input
-      .foldLeft(Rope(knots = 1.to(nbKnots).toList.map(_ => Knot())).init())(
-        (rope, line) => rope.applyMovement(line)
-      )
-      .knots
-      .last
-    println(lastKnot.renderPositions)
-    lastKnot.visitedPositions.toSet.size
+    def horizontalLength(a: Knot, b: Knot): Int = abs(a.x - b.x)
+
+    def verticalLength(a: Knot, b: Knot): Int = abs(a.y - b.y)
   }
-
-  override def puzzle1(input: List[String]): Any =
-    puzzle(input, 2)
-
-  override def puzzle2(input: List[String]): Any =
-    puzzle(input, 10)
-
-  override protected def testInputStr1: String = """R 4
-                                                   |U 4
-                                                   |L 3
-                                                   |D 1
-                                                   |R 4
-                                                   |D 1
-                                                   |L 5
-                                                   |R 2""".stripMargin
-
-  override protected def testInputStr2: String = """R 5
-                                                  |U 8
-                                                  |L 8
-                                                  |D 3
-                                                  |R 17
-                                                  |D 10
-                                                  |L 25
-                                                  |U 20""".stripMargin
 }
