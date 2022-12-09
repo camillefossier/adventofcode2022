@@ -11,16 +11,20 @@ trait Day {
 
   def main(args: Array[String]): Unit = {
     println("Puzzle 1 [TEST]")
-    tryPuzzle(puzzle1(testInput))
+    tryPuzzle(puzzle1(testInput(testInputStr1)))
+    println("")
     println("Puzzle 1 [REAL DATA]")
     tryPuzzle(puzzle1(input))
+    println("")
     println("Puzzle 2 [TEST]")
-    tryPuzzle(puzzle2(testInput))
+    tryPuzzle(puzzle2(testInput(testInputStr2)))
+    println("")
     println("Puzzle 2 [REAL DATA]")
     tryPuzzle(puzzle2(input))
   }
 
-  protected def testInput: List[String] = testInputStr.split("\n").toList
+  protected def testInput(input: String): List[String] =
+    input.split("\n").toList
 
   def input: List[String] = readFile(fileName)
 
@@ -38,5 +42,6 @@ trait Day {
       case Success(value)     => value
     }
 
-  protected def testInputStr: String
+  protected def testInputStr1: String
+  protected def testInputStr2: String = testInputStr1
 }

@@ -75,7 +75,7 @@ object Day5 extends Day {
       (crates, instruction) => instruction.to(crates, preserveOrder)
     )
 
-  override protected def testInputStr: String = """    [D]
+  override protected def testInputStr1: String = """    [D]
                                                   |[N] [C]
                                                   |[Z] [M] [P]
                                                   | 1   2   3

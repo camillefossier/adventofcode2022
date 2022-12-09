@@ -77,7 +77,7 @@ object Day2 extends Day {
   def getWinner(x: String): String =
     strategies(x)(1)
 
-  override protected def testInputStr: String = """A Y
+  override protected def testInputStr1: String = """A Y
                                                   |B X
                                                   |C Z""".stripMargin
 }

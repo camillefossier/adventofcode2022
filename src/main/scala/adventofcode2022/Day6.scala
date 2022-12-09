@@ -18,5 +18,6 @@ object Day6 extends Day {
       })
       .get
 
-  override protected def testInputStr: String = "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
+  override protected def testInputStr1: String =
+    "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
 }

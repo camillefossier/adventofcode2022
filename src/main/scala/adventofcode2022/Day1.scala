@@ -24,7 +24,7 @@ object Day1 extends Day {
   def topElves(list: List[Int], n: Int): Int =
     list.slice(0, n).sum
 
-  override protected def testInputStr: String = """1000
+  override protected def testInputStr1: String = """1000
                                                   |2000
                                                   |3000
                                                   |

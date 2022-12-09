@@ -70,7 +70,7 @@ object Day8 extends Day {
       .max
   }
 
-  override protected def testInputStr: String = """30373
+  override protected def testInputStr1: String = """30373
                                                   |25512
                                                   |65332
                                                   |33549

@@ -63,7 +63,7 @@ object Day7 extends Day {
       .collectFirst({ case (dir, size) if size >= toDelete => size })
   }
 
-  override protected def testInputStr: String = """$ cd /
+  override protected def testInputStr1: String = """$ cd /
                                                   |$ ls
                                                   |dir a
                                                   |14848514 b.txt

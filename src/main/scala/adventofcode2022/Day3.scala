@@ -34,7 +34,7 @@ object Day3 extends Day {
         case (a, b) => a.intersect(b.toSet)
       })
 
-  override protected def testInputStr: String =
+  override protected def testInputStr1: String =
     """vJrwpWtwJgWrhcsFMMfFFhFp
       |jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
       |PmmdzqPrVvPwwTWBwg

@@ -36,7 +36,7 @@ object Day4 extends Day {
   def overlap[T](set1: Set[T], set2: Set[T]): Boolean =
     set1.intersect(set2).nonEmpty
 
-  override protected def testInputStr: String = """2-4,6-8
+  override protected def testInputStr1: String = """2-4,6-8
                                                   |2-3,4-5
                                                   |5-7,7-9
                                                   |2-8,3-7
