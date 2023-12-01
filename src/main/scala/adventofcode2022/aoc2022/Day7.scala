@@ -1,4 +1,6 @@
-package adventofcode2022
+package adventofcode2022.aoc2022
+
+import adventofcode2022.Day
 
 object Day7 extends Day {
 
@@ -47,7 +49,7 @@ object Day7 extends Day {
     sizes + ("" -> sizes.get("").map(_ / 2).getOrElse(0))
   }
 
-  override def fileName: String = "day7"
+  override def fileName: String = "2022/day7"
 
   override def puzzle1(input: List[String]): Any =
     getSizes(getFiles(input)).filter({ case (k, v) => v <= 100000 }).values.sum

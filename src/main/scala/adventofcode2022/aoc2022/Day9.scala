@@ -1,10 +1,12 @@
-package adventofcode2022
+package adventofcode2022.aoc2022
+
+import adventofcode2022.Day
 
 import scala.math.{abs, max}
 
 object Day9 extends Day {
 
-  override def fileName: String = "day9"
+  override def fileName: String = "2022/day9"
 
   override def puzzle1(input: List[String]): Any =
     puzzle(input, 2)

@@ -1,10 +1,12 @@
-package adventofcode2022
+package adventofcode2022.aoc2022
+
+import adventofcode2022.Day
 
 object Day8 extends Day {
 
   type Forest = List[List[Int]]
 
-  override def fileName: String = "day8"
+  override def fileName: String = "2022/day8"
 
   def getForestVisibleTreesCount(forest: Forest): Int = {
     val l = forest.size

@@ -1,4 +1,6 @@
-package adventofcode2022
+package adventofcode2022.aoc2022
+
+import adventofcode2022.Day
 
 object Day2 extends Day {
 
@@ -6,7 +8,7 @@ object Day2 extends Day {
   val P = "P"
   val S = "S"
 
-  override def fileName: String = "day2"
+  override def fileName: String = "2022/day2"
 
   override def puzzle1(input: List[String]): Any =
     makePairs(input)

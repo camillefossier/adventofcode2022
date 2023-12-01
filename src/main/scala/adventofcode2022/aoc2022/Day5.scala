@@ -1,4 +1,6 @@
-package adventofcode2022
+package adventofcode2022.aoc2022
+
+import adventofcode2022.Day
 
 import scala.collection.mutable.Stack
 import scala.util.matching.Regex
@@ -9,7 +11,7 @@ object Day5 extends Day {
     s"move ($nb) from ($nb) to ($nb)".r("q", "src", "dst")
   val cratesRegexp = "\\[([A-Z])\\]|(?: {4})".r
 
-  override def fileName: String = "day5"
+  override def fileName: String = "2022/day5"
 
   override def puzzle1(input: List[String]): Any =
     parse(input) match {

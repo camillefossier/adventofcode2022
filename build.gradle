@@ -20,6 +20,9 @@ repositories {
 }
 
 dependencies {
+    implementation "io.circe:circe-generic_2.13:0.14.3"
+    implementation "io.circe:circe-parser_2.13:0.14.3"
+
     // Use Scala 2.13 in our library project
     implementation 'org.scala-lang:scala-library:2.13.5'
 

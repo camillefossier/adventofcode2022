@@ -1,8 +1,10 @@
-package adventofcode2022
+package adventofcode2022.aoc2022
+
+import adventofcode2022.Day
 
 object Day4 extends Day {
 
-  override def fileName: String = "day4"
+  override def fileName: String = "2022/day4"
 
   override def puzzle1(input: List[String]): Any =
     input.count(

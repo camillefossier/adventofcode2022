@@ -1,4 +1,8 @@
-package object adventofcode2022 {
+package adventofcode2022
+
+import scala.annotation.tailrec
+
+package object aoc2022 {
   implicit class RichIterator[T](arr: List[T]) {
     def split(cond: T => Boolean): List[List[T]] = {
       val i = arr.indexWhere(cond)
@@ -16,6 +20,9 @@ package object adventofcode2022 {
 
     def safeTail(n: Int = 1): List[T] =
       arr.slice(n, arr.size)
+
+    def unsafeFold(f: (List[T], T) => List[T]): List[T] =
+      arr.indices.foldLeft(arr)((acc, i) => f(acc, acc(i)))
   }
 
   implicit class RichString(str: String) {
@@ -25,4 +32,23 @@ package object adventofcode2022 {
     def splitNoEmpty(sep: String): Array[String] =
       str.split(sep).filter(_.nonEmpty)
   }
+
+  case class Point2(x: Int, y: Int) {
+    def +(other: Point2): Point2 =
+      Point2(x + other.x, y + other.y)
+
+    def +(x: Int = 0, y: Int = 0): Point2 =
+      this + Point2(x, y)
+  }
+  case class Point3(x: Int, y: Int, z: Int) {
+    def +(other: Point3): Point3 =
+      Point3(x + other.x, y + other.y, z + other.z)
+  }
+
+  @tailrec
+  def foldWhileTrue[T](init: T)(f: (T) => (T, Boolean)): T =
+    f(init) match {
+      case (t, true)  => foldWhileTrue(t)(f)
+      case (t, false) => t
+    }
 }
