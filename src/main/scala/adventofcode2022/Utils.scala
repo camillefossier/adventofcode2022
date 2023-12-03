@@ -2,7 +2,7 @@ package adventofcode2022
 
 import scala.annotation.tailrec
 
-package object aoc2022 {
+object Utils {
   implicit class RichIterator[T](arr: List[T]) {
     def split(cond: T => Boolean): List[List[T]] = {
       val i = arr.indexWhere(cond)

@@ -2,6 +2,7 @@ package adventofcode2022.aoc2022
 
 import adventofcode2022.Day
 import adventofcode2022.aoc2022.Day18.Drops.{findAround, parseLines}
+import adventofcode2022.Utils._
 
 object Day18 extends Day {
   case class Drops(cubes: Set[Point3]) {

@@ -2,6 +2,7 @@ package adventofcode2022.aoc2022
 
 import adventofcode2022.Day
 import adventofcode2022.aoc2022.Day15.SensorsMap.manhattan
+import adventofcode2022.Utils._
 
 import scala.math.abs
 
