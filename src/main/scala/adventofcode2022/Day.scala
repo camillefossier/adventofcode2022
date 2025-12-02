@@ -30,7 +30,7 @@ trait Day {
 
   def readFile(name: String): List[String] = {
     val file = scala.io.Source.fromFile(
-      s"/Users/c.fossier/workspace/adventofcode2022/adventofcode2022/src/main/resources/$name.txt"
+      s"/Users/c.fossier/workspace/aoc/adventofcode2022/src/main/resources/$name.txt"
     )
     try file.getLines().toList
     finally file.close()
